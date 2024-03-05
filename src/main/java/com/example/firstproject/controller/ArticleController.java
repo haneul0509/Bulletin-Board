@@ -21,11 +21,13 @@ public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
 
+    //게시글 생성 FORM
     @GetMapping("/articles/new")
     public String newArticleForm(){
         return "articles/new";
     }
 
+    //Create
     @PostMapping("/articles/create")
     public String createArticle(ArticleForm form){
         log.info(form.toString());
@@ -44,6 +46,7 @@ public class ArticleController {
         return "redirect:/articles/" + saved.getId();
     }
 
+    //일정 DATA Read
     @GetMapping("/articles/{id}")
     public String show(@PathVariable Long id, Model model){
         log.info("id = "+ id);
@@ -55,6 +58,7 @@ public class ArticleController {
         return "articles/show";
     }
 
+    //모든 DATA Read
     @GetMapping("/articles")
     public String index(Model model) {
 
@@ -67,14 +71,16 @@ public class ArticleController {
 
     }
 
+    //수정 데이터 가져오기
     @GetMapping("/articles/{id}/edit")
     public String edit(@PathVariable Long id, Model model){
-        //수정 데이터 가져오기
         Article articleEntity = articleRepository.findById(id).orElse(null);
         model.addAttribute("article", articleEntity);
         return "articles/edit";
     }
 
+
+    //Update
     @PostMapping("/articles/update")
     public String update(ArticleForm form){
         log.info(form.toString());
@@ -92,6 +98,7 @@ public class ArticleController {
         return "redirect:/articles/" + articleEntity.getId();
     }
 
+    //Delete
     @GetMapping("/articles/{id}/delete")
         public String delete(@PathVariable Long id, RedirectAttributes rttr){
         log.info("삭제 요청이 들어왔습니다.");
