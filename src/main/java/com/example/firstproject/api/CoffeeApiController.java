@@ -67,15 +67,9 @@ public class CoffeeApiController {
         if(target == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+        //3. 대상 삭제
         coffeeRepository.delete(target);
         return ResponseEntity.status(HttpStatus.OK).body(null);
-
-        //3. 대상 삭제
     }
-
-
-
-
-
 
 }
